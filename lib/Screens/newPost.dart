@@ -23,7 +23,8 @@ class newPost extends StatefulWidget {
   _newPostState createState() => _newPostState();
 }
 
-class _newPostState extends State<newPost> {
+class _newPostState extends State<newPost>
+    with AutomaticKeepAliveClientMixin<newPost> {
   TextEditingController _textEditingController = TextEditingController();
   userData currentuser;
   FirebaseAuth _auth;
@@ -31,6 +32,7 @@ class _newPostState extends State<newPost> {
   String postid = Uuid().v4();
   bool isUploading = false;
   String mediaUrl;
+  bool isAnnunymus = false;
   @override
   void initState() {
     getCurrentUser();
@@ -135,7 +137,7 @@ class _newPostState extends State<newPost> {
         .setData({
       "postId": postid,
       "ownerId": currentuser.id,
-      "username": currentuser.name,
+      "username": isAnnunymus == false ? currentuser.name : '',
       "mediaUrl": mediaUrl,
       "timestamp": timestamp,
       "likes": {},
@@ -143,6 +145,23 @@ class _newPostState extends State<newPost> {
       "topics": selected.join('  #'),
       "top": selected,
     });
+    for (var topic in selected) {
+      topicsRef
+          .document(topic)
+          .collection("topicPosts")
+          .document(postid)
+          .setData({
+        "postId": postid,
+        "ownerId": currentuser.id,
+        "username": isAnnunymus == false ? currentuser.name : '',
+        "mediaUrl": mediaUrl,
+        "timestamp": timestamp,
+        "likes": {},
+        "postcontent": postcontent,
+        "topics": selected.join('  #'),
+        "top": selected,
+      });
+    }
   }
 
   handleSubmit() async {
@@ -156,7 +175,7 @@ class _newPostState extends State<newPost> {
       );
       Navigator.pop(context);
       setState(() {
-        _textEditingController.clear();
+        //_textEditingController.clear();
 
         file = null;
         isUploading = false;
@@ -172,7 +191,7 @@ class _newPostState extends State<newPost> {
       );
       Navigator.pop(context);
       setState(() {
-        _textEditingController.clear();
+        //_textEditingController.clear();
 
         file = null;
         isUploading = false;
@@ -181,8 +200,10 @@ class _newPostState extends State<newPost> {
     }
   }
 
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.black,
@@ -211,22 +232,48 @@ class _newPostState extends State<newPost> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              currentUser.mediaUrl == null
-                                  ? CircleAvatar(
-                                      backgroundColor: Colors.grey,
-                                    )
-                                  : CircleAvatar(
-                                      radius: 15,
-                                      backgroundImage:
-                                          NetworkImage(currentUser.mediaUrl),
-                                    ),
-                              SizedBox(
-                                width: 5,
+                              Row(
+                                children: <Widget>[
+                                  currentUser.mediaUrl == null || isAnnunymus
+                                      ? CircleAvatar(
+                                          backgroundColor: Colors.grey,
+                                        )
+                                      : CircleAvatar(
+                                          radius: 15,
+                                          backgroundImage: NetworkImage(
+                                              currentUser.mediaUrl),
+                                        ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  isAnnunymus
+                                      ? Text(
+                                          'Anonymous Account',
+                                          style: TextStyle(fontSize: 20),
+                                        )
+                                      : Text(
+                                          currentUser.name,
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                ],
                               ),
-                              Text(
-                                currentUser.name,
-                                style: TextStyle(fontSize: 20),
+                              Row(
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(Icons.perm_identity),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (isAnnunymus == true) {
+                                          isAnnunymus = false;
+                                        } else {
+                                          isAnnunymus = true;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ],
                               )
                             ],
                           ),
@@ -296,7 +343,7 @@ class _newPostState extends State<newPost> {
                           alignment: MainAxisAlignment.start,
                           children: <Widget>[
                             MaterialButton(
-                              child: Icon(Icons.picture_as_pdf),
+                              child: Icon(Icons.photo),
                               onPressed: handleChooseFromGallery,
                             ),
                             MaterialButton(
@@ -336,7 +383,7 @@ class _newPostState extends State<newPost> {
       labelStyle: TextStyle(
         color: Colors.white,
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.blueGrey,
       checkmarkColor: Colors.white,
     );
   }

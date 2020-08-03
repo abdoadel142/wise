@@ -3,14 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wise/Screens/chat.dart';
+import 'package:wise/Screens/topicScreen.dart';
 import 'home_screen.dart';
 
-class Mail extends StatefulWidget {
+class Topics extends StatefulWidget {
   @override
-  _MailState createState() => _MailState();
+  _TopicsState createState() => _TopicsState();
 }
 
-class _MailState extends State<Mail> {
+class _TopicsState extends State<Topics> {
   var topicsIcons = [
     FaIcon(FontAwesomeIcons.footballBall),
     FaIcon(FontAwesomeIcons.chalkboardTeacher),
@@ -83,12 +84,16 @@ class _MailState extends State<Mail> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                leading: Icon(
-                  Icons.apps,
-                  //      color: Colors.white,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 title: Text(
-                  'Spaces',
+                  'Topics',
                 ),
                 //      backgroundColor: Colors.black,
                 floating: false,
@@ -141,7 +146,7 @@ class _MailState extends State<Mail> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => chat(
+            builder: (context) => topicScreen(
               topicname: data[index],
             ),
           ),

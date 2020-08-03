@@ -194,13 +194,14 @@ class _postState extends State<post> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             ListTile(
-              leading: user.mediaUrl == null
+              leading: user.mediaUrl == null || username.isEmpty
                   ? CircleAvatar(
-                      backgroundColor: Colors.grey,
+                      backgroundColor: Colors.blueGrey,
                     )
                   : CircleAvatar(
-                      backgroundImage:
-                          CachedNetworkImageProvider(user.mediaUrl),
+                      backgroundImage: NetworkImage(
+                        user.mediaUrl,
+                      ),
                     ),
 //              CircleAvatar(
 //                backgroundImage: CachedNetworkImageProvider(user.mediaUrl),
@@ -208,12 +209,15 @@ class _postState extends State<post> {
 
               title: GestureDetector(
                 onTap: () => showProfile(context, profileId: user.id),
-                child: Text(
-                  user.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: username.isEmpty
+                    ? Text("Anonymous Account",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ))
+                    : Text(user.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
               ),
               subtitle: Text(timeago.format(dateTime.toDate())),
               trailing: isPostOwner
@@ -223,16 +227,17 @@ class _postState extends State<post> {
                     )
                   : Text(''),
             ),
-            Padding(
-              padding: EdgeInsets.all(
-                5.0,
-              ),
-              child: Text(
-                postContent,
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.start,
-                // softWrap: true,
-                maxLines: 5,
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 15.0, bottom: 5.0),
+                child: Text(
+                  postContent,
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.start,
+                  // softWrap: true,
+                  maxLines: 10,
+                ),
               ),
             ),
           ],
@@ -318,9 +323,12 @@ class _postState extends State<post> {
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                Image.network(
-                  mediaUrl,
-                  fit: BoxFit.fitWidth,
+                CachedNetworkImage(
+                  imageUrl: mediaUrl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
                 showHeart
                     ? Animator(
@@ -412,6 +420,9 @@ class _postState extends State<post> {
                     color: Colors.grey,
                   ),
                 ),
+                SizedBox(
+                  width: 10.0,
+                )
               ],
             ),
           ],
@@ -432,7 +443,8 @@ class _postState extends State<post> {
           mediaUrl == null ? Text('') : buildPostImage(),
           buildPostFooter(),
           Divider(
-            thickness: 6.0,
+            // color: Colors.black,
+            thickness: 10.0,
           )
         ],
       ),

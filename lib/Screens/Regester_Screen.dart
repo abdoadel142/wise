@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wise/Screens/Login_Screen.dart';
 import 'package:wise/Screens/home_screen.dart';
 import 'package:wise/Wservices/auth_services.dart';
 
@@ -151,7 +152,7 @@ class _regesterState extends State<Regester_Screen> {
                     ),
                     Radio(
                       value: 'Male',
-                      activeColor: Colors.black,
+                      //  activeColor: Colors.black,
                       groupValue: _gender,
                       onChanged: (value) {
                         setState(() {
@@ -164,7 +165,7 @@ class _regesterState extends State<Regester_Screen> {
                       style: TextStyle(fontSize: 15.0),
                     ),
                     Radio(
-                        activeColor: Colors.black,
+                        //  activeColor: Colors.black,
                         value: 'Female',
                         groupValue: _gender,
                         onChanged: (value) {
@@ -217,6 +218,7 @@ class _regesterState extends State<Regester_Screen> {
                       ),
                     ),
                     elevation: 6.0,
+                    highlightColor: Colors.red,
                     fillColor: Colors.black,
                     shape: StadiumBorder(),
                   ),
@@ -227,7 +229,7 @@ class _regesterState extends State<Regester_Screen> {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(context, Login_Screen.id);
                     },
                     child: new Text(
                       "I already have an account",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:wise/classes/DarkThemeProvider.dart';
 
 class constant {
 //AppBar customAppBar(){
@@ -28,7 +29,8 @@ class constant {
     'Family Problems'
   ];
   var selected = [];
-
+  final textstyle = TextStyle(
+      color: DarkThemeProvider().darkTheme ? Colors.black : Colors.white);
   final titleTextstile = TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.w800,

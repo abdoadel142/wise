@@ -146,15 +146,28 @@ class Comment extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
-          title: Text(comment),
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                username,
+                style: constant().textstyle,
+              ),
+              Text(comment, style: constant().textstyle)
+            ],
+          ),
           leading: avatarUrl == null
               ? CircleAvatar(
                   backgroundColor: Colors.grey,
                 )
               : CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(avatarUrl),
+                  backgroundImage: NetworkImage(avatarUrl),
                 ),
           subtitle: Text(timeago.format(timestamp.toDate())),
+          trailing: Icon(
+            Icons.star_border,
+          ),
         ),
         Divider(),
       ],

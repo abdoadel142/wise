@@ -117,7 +117,7 @@ class UserResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //color: Theme.of(context).primaryColor.withOpacity(0.7),
+      color: Theme.of(context).primaryColor.withOpacity(0.7),
       child: Column(
         children: <Widget>[
           GestureDetector(
@@ -125,7 +125,7 @@ class UserResult extends StatelessWidget {
             child: ListTile(
               leading: user.mediaUrl == null
                   ? CircleAvatar(
-                      backgroundColor: Colors.grey,
+                      backgroundColor: Colors.blueGrey,
                     )
                   : CircleAvatar(
                       // backgroundColor: Colors.grey,
@@ -141,7 +141,7 @@ class UserResult extends StatelessWidget {
             ),
           ),
           Divider(
-            height: 2.0,
+            thickness: 7.0,
           ),
         ],
       ),

@@ -117,12 +117,16 @@ class ActivityFeedItem extends StatelessWidget {
             aspectRatio: 16 / 9,
             child: mediaUrl != null
                 ? Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: CachedNetworkImageProvider(mediaUrl),
-                      ),
-                    ),
+                    decoration: mediaUrl != null
+                        ? BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                mediaUrl,
+                              ),
+                            ),
+                          )
+                        : BoxDecoration(),
                   )
                 : Text(''),
           ),
@@ -180,7 +184,7 @@ class ActivityFeedItem extends StatelessWidget {
                   backgroundColor: Colors.grey,
                 )
               : CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(userProfileImg),
+                  backgroundImage: NetworkImage(userProfileImg),
                 ),
           subtitle: Text(
             timeago.format(timestamp.toDate()),

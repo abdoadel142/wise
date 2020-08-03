@@ -26,6 +26,9 @@ dependencies:
   timeago: ^2.0.26
   shared_preferences: ^0.5.7+2
   lite_rolling_switch: ^0.1.1
+  firebase_messaging: ^6.0.16
+  google_fonts: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:

@@ -87,11 +87,25 @@ class _profileState extends State<profile> {
         .collection('userPosts')
         .orderBy('timestamp', descending: true)
         .getDocuments();
+    List<post> myposts = [];
+
+    snapshot.documents.forEach((doc) {
+      post mpost = post.FromDocument(doc);
+      if (mpost.username.isEmpty) {
+      } else {
+        myposts.add(mpost);
+      }
+    });
     setState(() {
-      postCount = snapshot.documents.length;
-      posts = snapshot.documents.map((doc) => post.FromDocument(doc)).toList();
+      postCount = myposts.length;
+      posts = myposts;
       isLoading = false;
     });
+//    setState(() {
+//      postCount = snapshot.documents.length;
+//      posts = snapshot.documents.map((doc) => post.FromDocument(doc)).toList();
+//      isLoading = false;
+//    });
   }
 
   Column buildCountColumn(String label, int count) {
@@ -266,7 +280,9 @@ class _profileState extends State<profile> {
                     )
                   : CircleAvatar(
                       radius: 35,
-                      backgroundImage: NetworkImage(user.mediaUrl),
+                      backgroundImage: CachedNetworkImageProvider(
+                        user.mediaUrl,
+                      ),
                     ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),

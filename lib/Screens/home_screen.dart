@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +21,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 final StorageReference storageRef = FirebaseStorage.instance.ref();
 final chatref = Firestore.instance.collection('spaces');
-
+final topicsRef = Firestore.instance.collection('topics');
 final postsRef = Firestore.instance.collection('posts');
 final commentsRef = Firestore.instance.collection('comments');
 final activityFeedRef = Firestore.instance.collection('feed');
@@ -36,6 +40,9 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> with SingleTickerProviderStateMixin {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   PageController pageController;
   userData cuser;
   int pageIndex = 0;
@@ -47,6 +54,46 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
     super.initState();
     setState(() {
       getcurrentuser();
+    });
+  }
+
+  configurePushNotifications() {
+    final user = currentUser;
+    if (Platform.isIOS) getiOSPermission();
+
+    _firebaseMessaging.getToken().then((token) {
+      print("Firebase Messaging Token: $token\n");
+      usersRef
+          .document(user.id)
+          .updateData({"androidNotificationToken": token});
+    });
+
+    _firebaseMessaging.configure(
+      // onLaunch: (Map<String, dynamic> message) async {},
+      // onResume: (Map<String, dynamic> message) async {},
+      onMessage: (Map<String, dynamic> message) async {
+        print("on message: $message\n");
+        final String recipientId = message['data']['recipient'];
+        final String body = message['notification']['body'];
+        if (recipientId == user.id) {
+          print("Notification shown!");
+          SnackBar snackbar = SnackBar(
+              content: Text(
+            body,
+            overflow: TextOverflow.ellipsis,
+          ));
+          _scaffoldKey.currentState.showSnackBar(snackbar);
+        }
+        print("Notification NOT shown");
+      },
+    );
+  }
+
+  getiOSPermission() {
+    _firebaseMessaging.requestNotificationPermissions(
+        IosNotificationSettings(alert: true, badge: true, sound: true));
+    _firebaseMessaging.onIosSettingsRegistered.listen((settings) {
+      print("Settings registered: $settings");
     });
   }
 
@@ -87,6 +134,7 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
     });
     print('welcome');
     print(currentUser.id);
+    configurePushNotifications();
   }
 
   @override
@@ -94,6 +142,7 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return found
         ? Scaffold(
+            key: _scaffoldKey,
             bottomNavigationBar: SnakeNavigationBar(
               style: SnakeBarStyle.floating,
               snakeShape: SnakeShape.circle,

@@ -76,16 +76,18 @@ abstract class Styles {
       //* Custom Google Font
       //  fontFamily: Devfest.google_sans_family,
       cursorColor: Colors.blue,
+      //textTheme: TextTheme(title: TextStyle(color: isDarkTheme ? Colors.white : Colors.black),),
 
       primarySwatch: Colors.blue,
       unselectedWidgetColor: isDarkTheme ? Colors.white : Colors.black,
       primaryColor: isDarkTheme ? Colors.black : Colors.white,
       accentColor: isDarkTheme ? Colors.white : Colors.black,
-      backgroundColor: isDarkTheme ? Colors.black : Color(0xffF1F5FB),
-
+      backgroundColor: isDarkTheme ? Colors.grey[900] : Color(0xffF1F5FB),
+      scaffoldBackgroundColor:
+          isDarkTheme ? Colors.grey[900] : Color(0xffF1F5FB),
       indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
       buttonColor: isDarkTheme ? Colors.grey : Colors.white,
-
+      dividerColor: isDarkTheme ? Colors.black : Colors.grey[300],
       hintColor: isDarkTheme ? Colors.grey : Colors.black54,
 
       highlightColor: isDarkTheme ? Color(0xff372901) : Colors.blue,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wise/Screens/Login_Screen.dart';
 import 'package:wise/Screens/Regester_Screen.dart';
+import 'package:wise/Screens/Splash_screen.dart';
 import 'package:wise/Screens/newPost.dart';
 import 'package:wise/Screens/testhome.dart';
 
@@ -52,8 +53,9 @@ class _MyAppState extends State<MyApp> {
               title: "Wise",
               theme: Styles.themeData(themeChangeProvider.darkTheme, context),
               debugShowCheckedModeBanner: false,
-              initialRoute: Login_Screen.id,
+              initialRoute: Splash_screen.id,
               routes: {
+                Splash_screen.id: (context) => Splash_screen(),
                 profile.id: (context) => profile(),
                 Login_Screen.id: (context) => Login_Screen(),
                 Regester_Screen.id: (context) => Regester_Screen(),
