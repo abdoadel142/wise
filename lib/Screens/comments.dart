@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:wise/classes/constant.dart';
@@ -77,7 +76,7 @@ class CommentsState extends State<Comments> {
         "commentData": commentController.text,
         "timestamp": timestamp,
         "postId": postId,
-        "userId": currentUser.id,
+        "userId": postOwnerId,
         "name": currentUser.name,
         "userProfileImg": currentUser.mediaUrl,
         "mediaUrl": postMediaUrl,
@@ -92,7 +91,7 @@ class CommentsState extends State<Comments> {
       appBar: AppBar(
         title: Text(
           'Comments',
-          style: constant().titleTextstile,
+          //style: constant().titleTextstile,
         ),
       ),
       body: Column(
@@ -152,9 +151,11 @@ class Comment extends StatelessWidget {
             children: <Widget>[
               Text(
                 username,
-                style: constant().textstyle,
+                //style: constant().textstyle,
               ),
-              Text(comment, style: constant().textstyle)
+              Text(
+                comment,
+              )
             ],
           ),
           leading: avatarUrl == null

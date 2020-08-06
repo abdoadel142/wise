@@ -112,7 +112,7 @@ class _TopicsState extends State<Topics> {
                           EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Center(
                         child: Text(
-                          'Spaces',
+                          'Topics',
                           style: TextStyle(
                               color: Colors.grey[600],
                               fontWeight: FontWeight.w800,
@@ -159,7 +159,8 @@ class _TopicsState extends State<Topics> {
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(30.0),
             topLeft: Radius.circular(30.0),
-            bottomRight: Radius.circular(30.0)),
+            bottomRight: Radius.circular(30.0),
+            bottomLeft: Radius.circular(30.0)),
       ),
       //disabledColor: Colors.red,
       //disabledTextColor: Colors.black87,

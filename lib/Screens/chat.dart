@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wise/Models/userData.dart';
 import 'package:wise/Screens/home_screen.dart';
 import 'package:wise/Wservices/auth_services.dart';
@@ -8,14 +9,22 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class chat extends StatefulWidget {
   final String topicname;
-  chat({this.topicname});
+  final FaIcon topicicon;
+  final Color topicColour;
+  chat({this.topicname, this.topicicon, this.topicColour});
   @override
-  _chatState createState() => _chatState(topicname: this.topicname);
+  _chatState createState() => _chatState(
+      topicname: this.topicname,
+      topicColour: this.topicColour,
+      topicicon: this.topicicon);
 }
 
 class _chatState extends State<chat> {
   final String topicname;
-  _chatState({this.topicname});
+
+  final FaIcon topicicon;
+  final Color topicColour;
+  _chatState({this.topicname, this.topicicon, this.topicColour});
   final messagetextcontroler = TextEditingController();
   userData cuserdata;
   String message;
@@ -39,14 +48,24 @@ class _chatState extends State<chat> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: topicColour,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
-          title: Text(topicname),
+          title: Text(
+            topicname,
+            style: TextStyle(wordSpacing: 3, fontWeight: FontWeight.bold),
+          ),
           centerTitle: true,
+          titleSpacing: 3.0,
+          actions: <Widget>[
+            IconButton(
+              icon: topicicon,
+            )
+          ],
         ),
         body: k == true
             ? SafeArea(
@@ -164,7 +183,7 @@ class MessageBuble extends StatelessWidget {
             isme ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            sender,
+            "",
             style: TextStyle(
               fontSize: 12.0,
               //     color: Colors.black54,

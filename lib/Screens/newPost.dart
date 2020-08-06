@@ -238,12 +238,27 @@ class _newPostState extends State<newPost>
                                 children: <Widget>[
                                   currentUser.mediaUrl == null || isAnnunymus
                                       ? CircleAvatar(
-                                          backgroundColor: Colors.grey,
-                                        )
-                                      : CircleAvatar(
-                                          radius: 15,
-                                          backgroundImage: NetworkImage(
-                                              currentUser.mediaUrl),
+                                          //backgroundColor: Colors.grey,
+
+                                          )
+                                      : CachedNetworkImage(
+                                          imageUrl: currentUser.mediaUrl,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
                                   SizedBox(
                                     width: 5,
@@ -262,7 +277,9 @@ class _newPostState extends State<newPost>
                               Row(
                                 children: <Widget>[
                                   IconButton(
-                                    icon: Icon(Icons.perm_identity),
+                                    icon: isAnnunymus == true
+                                        ? Image.asset('images/owl5.png')
+                                        : Image.asset('images/owl2i.png'),
                                     onPressed: () {
                                       setState(() {
                                         if (isAnnunymus == true) {

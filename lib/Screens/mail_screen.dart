@@ -15,7 +15,7 @@ class _MailState extends State<Mail> {
     FaIcon(FontAwesomeIcons.footballBall),
     FaIcon(FontAwesomeIcons.chalkboardTeacher),
     FaIcon(FontAwesomeIcons.city),
-    Icon(Icons.fastfood),
+    FaIcon(FontAwesomeIcons.mixer),
     FaIcon(FontAwesomeIcons.brain),
     FaIcon(FontAwesomeIcons.plane),
     FaIcon(FontAwesomeIcons.autoprefixer),
@@ -28,7 +28,7 @@ class _MailState extends State<Mail> {
     FaIcon(FontAwesomeIcons.baby),
     FaIcon(FontAwesomeIcons.cat),
     FaIcon(FontAwesomeIcons.laugh),
-    Icon(Icons.pregnant_woman),
+    FaIcon(FontAwesomeIcons.bullseye),
     FaIcon(FontAwesomeIcons.graduationCap),
     FaIcon(FontAwesomeIcons.home),
   ];
@@ -37,7 +37,7 @@ class _MailState extends State<Mail> {
     'Sports',
     'Eduction',
     'Culture',
-    'Food',
+    'Divorce',
     'Science',
     'Travel',
     'Work issues',
@@ -106,14 +106,10 @@ class _MailState extends State<Mail> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Center(
-                        child: Text(
-                          'Spaces',
-                          style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.w800,
-                              fontSize: 30),
-                        ),
-                      ),
+                          child: Image.asset(
+                        'images/owl3.png',
+                        height: 100,
+                      )),
                     ),
                   ),
                   SliverPadding(
@@ -143,6 +139,8 @@ class _MailState extends State<Mail> {
           MaterialPageRoute(
             builder: (context) => chat(
               topicname: data[index],
+              topicicon: topicsIcons[index],
+              topicColour: colors[index],
             ),
           ),
         );

@@ -152,7 +152,7 @@ class _regesterState extends State<Regester_Screen> {
                     ),
                     Radio(
                       value: 'Male',
-                      //  activeColor: Colors.black,
+                      // activeColor: Colors.blue,
                       groupValue: _gender,
                       onChanged: (value) {
                         setState(() {
@@ -165,7 +165,7 @@ class _regesterState extends State<Regester_Screen> {
                       style: TextStyle(fontSize: 15.0),
                     ),
                     Radio(
-                        //  activeColor: Colors.black,
+                        // activeColor: Colors.blue,
                         value: 'Female',
                         groupValue: _gender,
                         onChanged: (value) {

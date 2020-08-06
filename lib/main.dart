@@ -5,11 +5,8 @@ import 'package:wise/Screens/Login_Screen.dart';
 import 'package:wise/Screens/Regester_Screen.dart';
 import 'package:wise/Screens/Splash_screen.dart';
 import 'package:wise/Screens/newPost.dart';
-import 'package:wise/Screens/testhome.dart';
-
 import 'package:wise/Screens/home_screen.dart';
 import 'package:wise/Screens/profile_screen.dart';
-import 'package:wise/Wservices/auth_services.dart';
 import 'package:wise/classes/DarkThemeProvider.dart';
 
 import 'classes/Styles.dart';
@@ -59,7 +56,6 @@ class _MyAppState extends State<MyApp> {
                 profile.id: (context) => profile(),
                 Login_Screen.id: (context) => Login_Screen(),
                 Regester_Screen.id: (context) => Regester_Screen(),
-                testhome.id: (context) => testhome(),
                 home.id: (context) => home(),
                 newPost.id: (context) => newPost(),
               });

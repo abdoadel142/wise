@@ -1,18 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wise/Models/postModel.dart';
 import 'package:wise/Models/userData.dart';
 import 'package:wise/Screens/Topics.dart';
+import 'package:wise/Screens/mail_screen.dart';
 import 'package:wise/Screens/newPost.dart';
-import 'package:wise/Screens/profile_screen.dart';
+import 'package:wise/Screens/onboarding.dart';
 import 'package:wise/Screens/search.dart';
 import 'package:wise/Screens/settings.dart';
-import 'package:wise/Screens/test.dart';
 import 'package:wise/classes/DarkThemeProvider.dart';
 import 'package:wise/classes/progress.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
 import 'home_screen.dart';
 
@@ -161,16 +159,17 @@ class _TimelineState extends State<Timeline> {
       // backgroundColor: themeChange.darkTheme ? Colors.grey[900] : Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('hgfd');
+          // print('hgfd');
           Navigator.pushNamed(context, newPost.id);
         },
-        backgroundColor: themeChange.darkTheme ? Colors.black : Colors.white,
+        backgroundColor:
+            themeChange.darkTheme ? Colors.grey[600] : Colors.black,
         elevation: 10,
         child: IconButton(
-          iconSize: 50,
-          icon: themeChange.darkTheme
-              ? Image.asset('images/logoDark.png')
-              : Image.asset('images/logo.png'),
+          icon: Icon(
+            Icons.edit,
+            color: !themeChange.darkTheme ? Colors.white : Colors.black,
+          ),
         ),
       ),
 
@@ -180,24 +179,39 @@ class _TimelineState extends State<Timeline> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
+              bottom: PreferredSize(
+                child: Container(
+                  color: themeChange.darkTheme ? Colors.white : Colors.black,
+                  height: 0.3,
+                ),
+                preferredSize: Size.fromHeight(4.0),
+              ),
+              titleSpacing: 5,
               title: Text(
                 "Wise",
-                style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2),
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 3,
+                ),
               ),
               leading: IconButton(
                 padding: EdgeInsets.all(5),
+                //iconSize: 30.0,
                 icon: Icon(
-                  Icons.settings,
+                  Icons.email,
+                  //size: 35.0,
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => setting(),
+                      builder: (context) => Mail(),
                     ),
                   );
                 },
               ),
+
               centerTitle: true,
 
               actions: <Widget>[
@@ -218,19 +232,32 @@ class _TimelineState extends State<Timeline> {
                 ),
                 IconButton(
                   padding: EdgeInsets.all(5),
-                  //iconSize: 30.0,
                   icon: Icon(
-                    Icons.category,
+                    Icons.settings,
                   ),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Topics(),
+                        builder: (context) => setting(),
                       ),
                     );
                   },
                 ),
+                IconButton(
+                  padding: EdgeInsets.all(5),
+                  icon: Icon(
+                    Icons.add,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => onboarding(),
+                      ),
+                    );
+                  },
+                )
               ],
               //     backgroundColor: Colors.black,
               elevation: 0,

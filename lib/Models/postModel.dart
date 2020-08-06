@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wise/Models/userData.dart';
 import 'package:wise/Screens/activity_feed.dart';
 import 'package:wise/Screens/comments.dart';
@@ -208,7 +207,9 @@ class _postState extends State<post> {
 //              ),
 
               title: GestureDetector(
-                onTap: () => showProfile(context, profileId: user.id),
+                onTap: () => username.isEmpty
+                    ? print("")
+                    : showProfile(context, profileId: user.id),
                 child: username.isEmpty
                     ? Text("Anonymous Account",
                         style: TextStyle(
@@ -364,7 +365,7 @@ class _postState extends State<post> {
               ),
               Text(
                 '#$topics',
-                //style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: Colors.grey),
               )
             ],
           ),
@@ -379,9 +380,7 @@ class _postState extends State<post> {
                   margin: EdgeInsets.only(left: 20.0),
                   child: Text(
                     "$likeCount likes",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ),
               ],
@@ -393,7 +392,7 @@ class _postState extends State<post> {
                   onTap: handleLikePost,
                   child: Icon(
                     isLiked ? Icons.favorite : Icons.favorite_border,
-                    size: 28.0,
+                    size: 20.0,
                     color: isLiked ? Colors.red : Colors.grey,
                   ),
                 ),
@@ -406,8 +405,8 @@ class _postState extends State<post> {
                     mediaUrl: mediaUrl,
                   ),
                   child: Icon(
-                    Icons.question_answer,
-                    size: 28.0,
+                    Icons.chat_bubble_outline,
+                    size: 20.0,
                     color: Colors.grey,
                   ),
                 ),
@@ -416,7 +415,7 @@ class _postState extends State<post> {
                   onTap: () => print('showing comments'),
                   child: Icon(
                     Icons.bookmark_border,
-                    size: 28.0,
+                    size: 20.0,
                     color: Colors.grey,
                   ),
                 ),
@@ -436,6 +435,7 @@ class _postState extends State<post> {
     isLiked = (likes[currentUser.id] == true);
 
     return Container(
+      // color: Colors.white,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -444,7 +444,7 @@ class _postState extends State<post> {
           buildPostFooter(),
           Divider(
             // color: Colors.black,
-            thickness: 10.0,
+            thickness: 1.0,
           )
         ],
       ),

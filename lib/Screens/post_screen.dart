@@ -25,7 +25,7 @@ class PostScreen extends StatelessWidget {
         print(postId);
         print(userId);
 
-        //print(snapshot.data['type']);
+        print(snapshot.data['type']);
         post Post = post.FromDocument(snapshot.data);
 
         return Center(

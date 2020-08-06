@@ -93,23 +93,25 @@ class ActivityFeedItem extends StatelessWidget {
   }
 
   showPost(context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PostScreen(
-          userId: userId,
-          postId: postId,
+    if (type == "like" || type == "comment") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PostScreen(
+            userId: userId,
+            postId: postId,
+          ),
         ),
-      ),
-    );
-    print(postId);
-    print('llljjjhhhgg');
+      );
+    }
   }
 
   configureMediaPreview(context) {
     if (type == "like" || type == 'comment') {
       mediaPreview = GestureDetector(
-        onTap: () => showPost(context),
+        onTap: () {
+          showPost(context);
+        },
         child: Container(
           height: 50.0,
           width: 50.0,
@@ -137,11 +139,11 @@ class ActivityFeedItem extends StatelessWidget {
     }
 
     if (type == 'like') {
-      activityItemText = "liked your post";
+      activityItemText = "liked your Question";
     } else if (type == 'follow') {
       activityItemText = "is following you";
     } else if (type == 'comment') {
-      activityItemText = 'replied: $commentData';
+      activityItemText = 'answered: $commentData';
     } else {
       activityItemText = "Error: Unknown type '$type'";
     }
@@ -153,47 +155,67 @@ class ActivityFeedItem extends StatelessWidget {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Padding(
-      padding: EdgeInsets.only(bottom: 2.0),
-      child: Container(
-        //  color: ThemeData.dark().primaryColor,
-        child: ListTile(
-          title: GestureDetector(
-            onTap: () => showProfile(context, profileId: userId),
-            child: RichText(
-              overflow: TextOverflow.ellipsis,
-              text: TextSpan(
-                  style: TextStyle(
-                    color: themeChange.darkTheme ? Colors.white : Colors.black,
-                    fontSize: 14.0,
+        padding: EdgeInsets.only(bottom: 2.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              //  color: ThemeData.dark().primaryColor,
+              child: ListTile(
+                title: GestureDetector(
+                  onTap: () => showProfile(context, profileId: userId),
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                        style: TextStyle(
+                          color: themeChange.darkTheme
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 14.0,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: username,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' $activityItemText',
+                          ),
+                        ]),
                   ),
-                  children: [
-                    TextSpan(
-                      text: username,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                      text: ' $activityItemText',
-                    ),
-                  ]),
-            ),
-          ),
-          leading: userProfileImg == null
-              ? CircleAvatar(
-                  backgroundColor: Colors.grey,
-                )
-              : CircleAvatar(
-                  backgroundImage: NetworkImage(userProfileImg),
                 ),
-          subtitle: Text(
-            timeago.format(timestamp.toDate()),
-            overflow: TextOverflow.ellipsis,
-          ),
-          trailing: mediaPreview,
-        ),
-      ),
-    );
+                leading: userProfileImg == null
+                    ? CircleAvatar(
+                        backgroundColor: Colors.blueGrey,
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: userProfileImg,
+                        imageBuilder: (context, imageProvider) => Container(
+                          width: 50.0,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                subtitle: Text(
+                  timeago.format(timestamp.toDate()),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: mediaPreview,
+              ),
+            ),
+            Divider(
+              thickness: 2,
+            )
+          ],
+        ));
   }
 }
 

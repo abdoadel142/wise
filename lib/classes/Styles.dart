@@ -83,21 +83,20 @@ abstract class Styles {
       primaryColor: isDarkTheme ? Colors.black : Colors.white,
       accentColor: isDarkTheme ? Colors.white : Colors.black,
       backgroundColor: isDarkTheme ? Colors.grey[900] : Color(0xffF1F5FB),
-      scaffoldBackgroundColor:
-          isDarkTheme ? Colors.grey[900] : Color(0xffF1F5FB),
+      scaffoldBackgroundColor: isDarkTheme ? Colors.black : Colors.white,
       indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
-      buttonColor: isDarkTheme ? Colors.grey : Colors.white,
-      dividerColor: isDarkTheme ? Colors.black : Colors.grey[300],
+      buttonColor: isDarkTheme ? Colors.blueGrey : Colors.blue,
+      dividerColor: isDarkTheme ? Colors.grey[800] : Colors.grey[300],
       hintColor: isDarkTheme ? Colors.grey : Colors.black54,
 
-      highlightColor: isDarkTheme ? Color(0xff372901) : Colors.blue,
+      highlightColor: Colors.blue,
       hoverColor: isDarkTheme ? Color(0xff3A3A3B) : Color(0xff4285F4),
 
       focusColor: isDarkTheme ? Colors.grey : Colors.blue,
       disabledColor: Colors.grey,
       textSelectionColor: isDarkTheme ? Colors.white : Colors.black,
       cardColor: isDarkTheme ? Color(0xFF151515) : Colors.white,
-
+      // primaryIconTheme: IconThemeData(color: Colors.grey),
       canvasColor: isDarkTheme ? Colors.black : Colors.grey[50],
       brightness: isDarkTheme ? Brightness.dark : Brightness.light,
       buttonTheme: Theme.of(context).buttonTheme.copyWith(

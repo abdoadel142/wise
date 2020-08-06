@@ -385,7 +385,7 @@ class _profileState extends State<profile> {
         children: <Widget>[
           buildProfileHeader(),
           Divider(
-            thickness: 5,
+            thickness: 1,
           ),
           buildProfilePosts(),
         ],

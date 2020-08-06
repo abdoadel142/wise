@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wise/Models/user.dart';
 import 'package:wise/Models/userData.dart';
-import 'package:wise/Screens/home_screen.dart';
 
 class authServices {
   final CollectionReference topicsColection =

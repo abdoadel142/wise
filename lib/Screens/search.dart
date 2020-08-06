@@ -62,7 +62,23 @@ class _SearchState extends State<Search> {
       child: Center(
         child: ListView(
           shrinkWrap: true,
-          children: <Widget>[],
+          padding: EdgeInsets.all(50),
+          children: <Widget>[
+            Image.asset(
+              'images/anon.png',
+              fit: BoxFit.cover,
+            ),
+            Center(
+              child: Text(
+                "Find Users",
+                style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                    wordSpacing: 2,
+                    letterSpacing: 3),
+              ),
+            )
+          ],
         ),
       ),
     );

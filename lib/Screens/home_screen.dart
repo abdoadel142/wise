@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wise/Models/userData.dart';
 import 'package:flutter/material.dart';
+import 'package:wise/Screens/Topics.dart';
 import 'package:wise/Screens/activity_feed.dart';
 import 'package:wise/Screens/mail_screen.dart';
 import 'package:wise/Screens/search.dart';
@@ -143,44 +144,70 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
     return found
         ? Scaffold(
             key: _scaffoldKey,
-            bottomNavigationBar: SnakeNavigationBar(
-              style: SnakeBarStyle.floating,
-              snakeShape: SnakeShape.circle,
-              snakeColor: themeChange.darkTheme ? Colors.white : Colors.black,
-              backgroundColor:
-                  themeChange.darkTheme ? Colors.black : Colors.white,
-              showUnselectedLabels: false,
-              showSelectedLabels: false,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25))),
-              padding: EdgeInsets.all(1),
+            bottomNavigationBar: BottomNavigationBar(
               currentIndex: pageIndex,
-              onPositionChanged: onTap,
+              selectedItemColor:
+                  themeChange.darkTheme ? Colors.white : Colors.black,
+              unselectedItemColor: Colors.grey,
+              onTap: onTap,
               items: [
                 BottomNavigationBarItem(
+                  title: Text(""),
                   icon: Icon(Icons.home),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(FlutterIcons.notifications_active_mdi),
+                  title: Text(""),
+                  icon: Icon(FlutterIcons.md_notifications_outline_ion),
                 ),
                 BottomNavigationBarItem(
+                  title: Text(""),
                   icon: Icon(FlutterIcons.group_faw),
                 ),
                 BottomNavigationBarItem(
+                  title: Text(""),
                   icon: Icon(FontAwesomeIcons.userAlt),
                 ),
               ],
             ),
+//            SnakeNavigationBar(
+////              selectedItemColor: Colors.blue,
+//
+//              style: SnakeBarStyle.floating,
+//              snakeShape: SnakeShape.circle,
+//              snakeColor: themeChange.darkTheme ? Colors.blue : Colors.blue,
+//              backgroundColor:
+//                  themeChange.darkTheme ? Colors.black : Colors.white,
+//              showUnselectedLabels: false,
+//              showSelectedLabels: false,
+//              shape: RoundedRectangleBorder(
+//                  borderRadius: BorderRadius.all(Radius.circular(25))),
+//              padding: EdgeInsets.all(1),
+//              currentIndex: pageIndex,
+//              onPositionChanged: onTap,
+//              items: [
+//              BottomNavigationBarItem(
+//                icon: Icon(Icons.home),
+//              ),
+//              BottomNavigationBarItem(
+//                icon: Icon(FlutterIcons.notifications_active_mdi),
+//              ),
+//              BottomNavigationBarItem(
+//                icon: Icon(FlutterIcons.group_faw),
+//              ),
+//              BottomNavigationBarItem(
+//                icon: Icon(FontAwesomeIcons.userAlt),
+//              ),
+//            ],
+//            ),
+
             body: PageView(
               children: <Widget>[
                 //feed(),
                 Timeline(
                   currentUser: currentUser,
                 ),
-
                 ActivityFeed(),
-
-                Mail(),
+                Topics(),
                 profile(profileId: currentUser.id),
               ],
               controller: pageController,

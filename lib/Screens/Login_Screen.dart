@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wise/Models/userData.dart';
 import 'package:wise/Screens/home_screen.dart';
-import 'package:wise/Screens/testhome.dart';
 import 'package:wise/Wservices/auth_services.dart';
 import 'package:wise/classes/DarkThemeProvider.dart';
 import 'Regester_Screen.dart';
@@ -153,7 +152,7 @@ class _loginState extends State<Login_Screen> {
                     ),
                     elevation: 6.0,
                     fillColor:
-                        themeChange.darkTheme ? Colors.white30 : Colors.black,
+                        themeChange.darkTheme ? Colors.grey[900] : Colors.black,
                     shape: StadiumBorder(),
                   ),
                 ),

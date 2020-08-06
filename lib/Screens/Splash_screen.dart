@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wise/Screens/Regester_Screen.dart';
 import 'package:wise/Screens/home_screen.dart';
+import 'package:wise/Screens/onboarding.dart';
 
 class Splash_screen extends StatefulWidget {
   static const id = 'splashScreen';
@@ -16,7 +18,7 @@ class _Splash_screenState extends State<Splash_screen> {
   @override
   void initState() {
     Timer(Duration(seconds: 1), () {
-      checkLogin();
+      checkFirstSeen();
     });
 
     super.initState();
@@ -28,6 +30,19 @@ class _Splash_screenState extends State<Splash_screen> {
       Navigator.pushReplacementNamed(context, home.id);
     } else {
       Navigator.pushReplacementNamed(context, Regester_Screen.id);
+    }
+  }
+
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
+
+    if (_seen) {
+      checkLogin();
+    } else {
+      await prefs.setBool('seen', true);
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => onboarding()));
     }
   }
 
