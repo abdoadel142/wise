@@ -1,6 +1,4 @@
 # wise
-![](https://i.ibb.co/GVYSn7s/owl3.png)
-
 
 wise is a mobile application that can be used as a communication between expert persons and inexpert persons. The application is used to transfer practices, information, knowledge, experience between users. 
 
@@ -21,3 +19,13 @@ Instead of asking people for advice or suggestions, ask for their experiences. I
  - [Node js] Backend
  
  
+## views 
+![](https://i.ibb.co/51ZXCrn/Screenshot-218.png)
+
+![](https://i.ibb.co/09G5Nyb/Screenshot-219.png)
+
+![](https://i.ibb.co/frgq7LP/Screenshot-215.png)
+
+![](https://i.ibb.co/v41RfD6/Screenshot-216.png)
+
+![](https://i.ibb.co/bzvWGtQ/Screenshot-217.png)
